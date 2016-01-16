@@ -1,5 +1,5 @@
 # SamuStroop
-[Samu](http://arxiv.org/abs/1511.02889) (Hanshon) experiencing with the Stroop effect
+[Samu](http://arxiv.org/abs/1511.02889) (Hanshon) is experiencing with the Stroop effect
 This is an example of the manuscript entitled "Samu in his prenatal development".
 
 This project uses the same COP-based Q-learning engine as Samu ([Nahshon](https://github.com/nbatfai/nahshon)) 
