@@ -24,3 +24,9 @@ make
 [https://youtu.be/VujHHeYuzIk](https://youtu.be/VujHHeYuzIk)
 
 ![samustroop](https://cloud.githubusercontent.com/assets/3148120/12371932/893eca66-bc45-11e5-9b29-aa19884a551c.png)
+
+## Other Experiments with [Samu's COP engine](http://arxiv.org/abs/1511.02889)
+
+* [Samu has learnt the rules of Conway's Game of Life](https://github.com/nbatfai/SamuLife)
+
+* [Samu has captured a movie](https://github.com/nbatfai/SamuMovie)

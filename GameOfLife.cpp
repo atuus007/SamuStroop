@@ -205,21 +205,66 @@ void GameOfLife::development()
 
 
   ++age;
+  /*
+    if ( age <20 )
+      {
+        red ( nextLattice, 2, 5, 1 );
+      }
+    else if ( age <40 )
+      {
+        red ( nextLattice, 2, 5, 2 );
+      }
+    else if ( age <60 )
+      {
+        red ( nextLattice, 2, 5, 3 );
+      }
+    else if ( age <80 )
+      {
+        green ( nextLattice, 2, 5, 1 );
+      }
+    else if ( age <100 )
+      {
+        green ( nextLattice, 2, 5, 2 );
+      }
+    else if ( age <120 )
+      {
+        green ( nextLattice, 2, 5, 3 );
+      }
+    else if ( age <140 )
+      {
+        blue ( nextLattice, 2, 5, 1 );
+      }
+    else if ( age <160 )
+      {
+        blue ( nextLattice, 2, 5, 2 );
+      }
+    else if ( age <180 )
+      {
+        blue ( nextLattice, 2, 5, 3 );
+      }
+    else
+      {
+        age =0;
+      }
+  */
+
+  green ( nextLattice, 0, 3, 3 );
+
   if ( age <20 )
     {
       red ( nextLattice, 2, 5, 1 );
     }
   else if ( age <40 )
     {
-      red ( nextLattice, 2, 5, 2 );
+      green ( nextLattice, 2, 5, 1 );
     }
   else if ( age <60 )
     {
-      red ( nextLattice, 2, 5, 3 );
+      blue ( nextLattice, 2, 5, 1 );
     }
   else if ( age <80 )
     {
-      green ( nextLattice, 2, 5, 1 );
+      red ( nextLattice, 2, 5, 2 );
     }
   else if ( age <100 )
     {
@@ -227,15 +272,15 @@ void GameOfLife::development()
     }
   else if ( age <120 )
     {
-      green ( nextLattice, 2, 5, 3 );
+      blue ( nextLattice, 2, 5, 2 );
     }
   else if ( age <140 )
     {
-      blue ( nextLattice, 2, 5, 1 );
+      red ( nextLattice, 2, 5, 3 );
     }
   else if ( age <160 )
     {
-      blue ( nextLattice, 2, 5, 2 );
+      green ( nextLattice, 2, 5, 3 );
     }
   else if ( age <180 )
     {
@@ -246,6 +291,8 @@ void GameOfLife::development()
       age =0;
       //red ( nextLattice, 2, 5, 2 );
     }
+
+  green ( nextLattice, 4, 7, 1 );
 
 
   /*
@@ -304,8 +351,8 @@ void GameOfLife::red ( int **lattice, int x, int y, int color )
     {
       for ( int j {0}; j<17; ++j )
         {
-          lattice[y+i][x+j] = r[i][j]*color;
-
+          if ( r[i][j] )
+            lattice[y+i][x+j] = r[i][j]*color;
         }
 
     }
@@ -330,8 +377,9 @@ void GameOfLife::green ( int **lattice, int x, int y, int color )
     {
       for ( int j {0}; j<29; ++j )
         {
-          lattice[y+i][x+j] = r[i][j]*color;
 
+          if ( r[i][j] )
+            lattice[y+i][x+j] = r[i][j]*color;
         }
 
     }
@@ -356,8 +404,8 @@ void GameOfLife::blue ( int **lattice, int x, int y, int color )
     {
       for ( int j {0}; j<21; ++j )
         {
-          lattice[y+i][x+j] = r[i][j]*color;
-
+          if ( r[i][j] )
+            lattice[y+i][x+j] = r[i][j]*color;
         }
 
     }

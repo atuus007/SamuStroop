@@ -91,27 +91,33 @@ void SamuLife::paintEvent ( QPaintEvent* )
                 qpainter.fillRect ( gameOfLife->getW() *m_cw + j*m_cw, i*m_ch,
                                     m_cw, m_ch, Qt::white );
             }
-          qpainter.setPen ( QPen ( Qt::red, 1 ) );
+          qpainter.setPen ( QPen ( Qt::lightGray, 1 ) );
 
           qpainter.drawRect ( j*m_cw, i*m_ch,
                               m_cw, m_ch );
 
-          qpainter.setPen ( QPen ( Qt::blue, 1 ) );
+          qpainter.setPen ( QPen ( Qt::darkGray, 1 ) );
 
           qpainter.drawRect ( gameOfLife->getW() *m_cw + j*m_cw, i*m_ch,
                               m_cw, m_ch );
+
         }
     }
+
+  qpainter.setPen ( QPen ( Qt::black, 1 ) );
+
+  qpainter.drawLine ( gameOfLife->getW() *m_cw, 0,
+                      gameOfLife->getW() *m_cw,gameOfLife->getH() *m_ch );
 
   QFont font = qpainter.font() ;
   font.setPointSize ( 28 );
   qpainter.setFont ( font );
-  qpainter.setPen ( QPen ( Qt::red, 1 ) );
+  qpainter.setPen ( QPen ( Qt::black, 1 ) );
   qpainter.drawText ( 40, 60, "Reality" );
-  qpainter.setPen ( QPen ( Qt::blue, 1 ) );
+  qpainter.setPen ( QPen ( Qt::black, 1 ) );
   qpainter.drawText ( gameOfLife->getW() *m_cw +40, 60, "Samu's prediction" );
-  qpainter.setPen ( QPen ( Qt::gray, 1 ) );
-  qpainter.drawText ( 40, gameOfLife->getH() *m_ch - 30 , QString::number(gameOfLife->getT()) );
+  qpainter.setPen ( QPen ( Qt::darkGray, 1 ) );
+  qpainter.drawText ( 40, gameOfLife->getH() *m_ch - 30 , QString::number ( gameOfLife->getT() ) );
 
   qpainter.end();
 }
@@ -122,13 +128,13 @@ void SamuLife::keyPressEvent ( QKeyEvent * event )
     {
       gameOfLife->pause();
     }
-  else if ( event->key() == Qt::Key_D) //Qt::Key_division )
+  else if ( event->key() == Qt::Key_D ) //Qt::Key_division )
     {
-      gameOfLife->setDelay(gameOfLife->getDelay() / 2.0);
+      gameOfLife->setDelay ( gameOfLife->getDelay() / 2.0 );
     }
-  else if ( event->key() == Qt::Key_M) //Qt::Key_multiply )
+  else if ( event->key() == Qt::Key_M ) //Qt::Key_multiply )
     {
-      gameOfLife->setDelay(gameOfLife->getDelay() * 2.0);
+      gameOfLife->setDelay ( gameOfLife->getDelay() * 2.0 );
     }
 }
 
