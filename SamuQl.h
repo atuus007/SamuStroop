@@ -788,8 +788,7 @@ public:
 
         double reward =
             //3.0*triplet.cmp ( prev_action ) - 1.5;
-            //( triplet == prev_action ) ?max_reward:min_reward;
-( triplet != prev_action ) ?max_reward:min_reward;
+            ( triplet == prev_action ) ?max_reward:min_reward;
             
         SPOTriplet action = triplet;
 
