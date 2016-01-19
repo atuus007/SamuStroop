@@ -634,7 +634,7 @@ public:
 #elif LIFEOFGAME
             //prcps[triplet] = new Perceptron ( 3, 9, 32, 1 );
 //	    prcps[triplet] = new Perceptron ( 4, 2, 64, 9, 1 );
-	    	   prcps[triplet] = new Perceptron ( 3, 2, 6, 1 );
+            prcps[triplet] = new Perceptron ( 3, 2, 6, 1 );
 #else
             prcps[triplet] = new Perceptron ( 3, 256*256, 80, 1 );
             //prcps[triplet] = new Perceptron ( 3, 256*256, 400, 1 );
@@ -736,9 +736,9 @@ public:
         std::memcpy ( prev_image, image, 10*80*sizeof ( double ) );
 #elif LIFEOFGAME
         std::memcpy ( prev_image, image, 40*sizeof ( double ) );
-	
-	
-	
+
+
+
 #else
         std::memcpy ( prev_image, image, 256*256*sizeof ( double ) );
 #endif
@@ -788,8 +788,9 @@ public:
 
         double reward =
             //3.0*triplet.cmp ( prev_action ) - 1.5;
-            ( triplet == prev_action ) ?max_reward:min_reward;
-
+            //( triplet == prev_action ) ?max_reward:min_reward;
+( triplet != prev_action ) ?max_reward:min_reward;
+            
         SPOTriplet action = triplet;
 
         if ( prev_reward >  -std::numeric_limits<double>::max() ) {
@@ -827,8 +828,8 @@ public:
     }
 #endif
     double alpha ( int n ) {
-//        return 1.0/ ( ( ( double ) n ) + 1.0 );
-              return 1000000.0/ ( ( ( double ) n ) + 10001.0 );
+        return 1.0/ ( ( ( double ) n ) + 1.0 );
+//              return 1000000.0/ ( ( ( double ) n ) + 10001.0 );
     }
 
     void clearn ( void ) {
@@ -869,126 +870,126 @@ public:
         }
 
     }
-/*
-    void save_prcps ( std::fstream & samuFile ) {
-        samuFile << prcps.size();
+    /*
+        void save_prcps ( std::fstream & samuFile ) {
+            samuFile << prcps.size();
 
-        int prev_p {0};
-        for ( std::map<SPOTriplet, Perceptron*>::iterator it=prcps.begin(); it!=prcps.end(); ++it ) {
-            int p = ( std::distance ( prcps.begin(), it ) * 100 ) / prcps.size();
-            if ( p > prev_p+9 ) {
-                std::cerr << "Saving Samu: "
-                          << p
-                          << "% (perceptrons)"
-                          << std::endl;
-                prev_p = p;
-            }
-            samuFile << " "
-                     << it->first;
-            it->second->save ( samuFile );
-        }
-    }
-
-    void save_frqs ( std::fstream & samuFile ) {
-        samuFile << std::endl
-                 << frqs.size();
-
-        int prev_p {0};
-        for ( std::map<SPOTriplet, std::map<std::string, int>>::iterator it=frqs.begin(); it!=frqs.end(); ++it ) {
-
-            int p = ( std::distance ( frqs.begin(), it ) * 100 ) / frqs.size();
-            if ( p > prev_p+9 ) {
-                std::cerr << "Saving Samu: "
-                          << p
-                          << "% (frequency table)"
-                          << std::endl;
-                prev_p = p;
-            }
-
-            samuFile << " "
-                     << it->first
-                     << " "
-                     << it->second.size();
-            for ( std::map<std::string, int>::iterator itt=it->second.begin(); itt!=it->second.end(); ++itt ) {
+            int prev_p {0};
+            for ( std::map<SPOTriplet, Perceptron*>::iterator it=prcps.begin(); it!=prcps.end(); ++it ) {
+                int p = ( std::distance ( prcps.begin(), it ) * 100 ) / prcps.size();
+                if ( p > prev_p+9 ) {
+                    std::cerr << "Saving Samu: "
+                              << p
+                              << "% (perceptrons)"
+                              << std::endl;
+                    prev_p = p;
+                }
                 samuFile << " "
-                         << itt->first
+                         << it->first;
+                it->second->save ( samuFile );
+            }
+        }
+
+        void save_frqs ( std::fstream & samuFile ) {
+            samuFile << std::endl
+                     << frqs.size();
+
+            int prev_p {0};
+            for ( std::map<SPOTriplet, std::map<std::string, int>>::iterator it=frqs.begin(); it!=frqs.end(); ++it ) {
+
+                int p = ( std::distance ( frqs.begin(), it ) * 100 ) / frqs.size();
+                if ( p > prev_p+9 ) {
+                    std::cerr << "Saving Samu: "
+                              << p
+                              << "% (frequency table)"
+                              << std::endl;
+                    prev_p = p;
+                }
+
+                samuFile << " "
+                         << it->first
                          << " "
-                         << itt->second;
+                         << it->second.size();
+                for ( std::map<std::string, int>::iterator itt=it->second.begin(); itt!=it->second.end(); ++itt ) {
+                    samuFile << " "
+                             << itt->first
+                             << " "
+                             << itt->second;
+                }
+            }
+
+        }
+
+        void save ( std::string & fname ) {
+            std::fstream samuFile ( fname,  std::ios_base::out );
+
+            save_prcps ( samuFile );
+            save_frqs ( samuFile );
+
+            samuFile.close();
+        }
+
+        void load_prcps ( std::fstream & file ) {
+            int prcpsSize {0};
+            file >> prcpsSize;
+
+            int prev_p {0};
+            SPOTriplet t;
+            for ( int s {0}; s< prcpsSize; ++s ) {
+                int p = ( s * 100 ) / prcpsSize;
+                if ( p > prev_p+9 ) {
+                    std::cerr << "Loading Samu: "
+                              << p
+                              << "% (perceptrons)"
+                              << std::endl;
+                    prev_p = p;
+                }
+
+
+                file >> t;
+
+                prcps[t] = new Perceptron ( file );
+            }
+
+        }
+
+        void load_frqs ( std::fstream & file ) {
+            int frqsSize {0};
+            file >> frqsSize;
+
+            int prev_pc {0};
+            int mapSize {0};
+            SPOTriplet t;
+            std::string p;
+            int n;
+            for ( int s {0}; s< frqsSize; ++s ) {
+
+                int pc = ( s * 100 ) / frqsSize;
+                if ( pc > prev_pc+9 ) {
+                    std::cerr << "Loading Samu: "
+                              << pc
+                              << "% (frequency table)"
+                              << std::endl;
+                    prev_pc = pc;
+                }
+
+                file >> t;
+                file >> mapSize;
+                for ( int ss {0}; ss< mapSize; ++ss ) {
+                    file >> p;
+                    file >> n;
+
+                    frqs[t][p] = n;
+                }
             }
         }
 
-    }
 
-    void save ( std::string & fname ) {
-        std::fstream samuFile ( fname,  std::ios_base::out );
-
-        save_prcps ( samuFile );
-        save_frqs ( samuFile );
-
-        samuFile.close();
-    }
-
-    void load_prcps ( std::fstream & file ) {
-        int prcpsSize {0};
-        file >> prcpsSize;
-
-        int prev_p {0};
-        SPOTriplet t;
-        for ( int s {0}; s< prcpsSize; ++s ) {
-            int p = ( s * 100 ) / prcpsSize;
-            if ( p > prev_p+9 ) {
-                std::cerr << "Loading Samu: "
-                          << p
-                          << "% (perceptrons)"
-                          << std::endl;
-                prev_p = p;
-            }
-
-
-            file >> t;
-
-            prcps[t] = new Perceptron ( file );
+        void load ( std::fstream & file ) {
+            load_prcps ( file );
+            load_frqs ( file );
         }
-
-    }
-
-    void load_frqs ( std::fstream & file ) {
-        int frqsSize {0};
-        file >> frqsSize;
-
-        int prev_pc {0};
-        int mapSize {0};
-        SPOTriplet t;
-        std::string p;
-        int n;
-        for ( int s {0}; s< frqsSize; ++s ) {
-
-            int pc = ( s * 100 ) / frqsSize;
-            if ( pc > prev_pc+9 ) {
-                std::cerr << "Loading Samu: "
-                          << pc
-                          << "% (frequency table)"
-                          << std::endl;
-                prev_pc = pc;
-            }
-
-            file >> t;
-            file >> mapSize;
-            for ( int ss {0}; ss< mapSize; ++ss ) {
-                file >> p;
-                file >> n;
-
-                frqs[t][p] = n;
-            }
-        }
-    }
-
-
-    void load ( std::fstream & file ) {
-        load_prcps ( file );
-        load_frqs ( file );
-    }
-*/
+    */
     int get_N_e ( void ) const {
         return N_e;
     }
@@ -1131,12 +1132,12 @@ private:
     /*
     double max_reward {13.1};
     double min_reward {-3.1};
-*/
-    
+    */
+
     double max_reward {100.20};
     double min_reward {-100.70};
 
-    #ifdef PLACE_VALUE
+#ifdef PLACE_VALUE
     double prev_image [10*3];
 #elif FOUR_TIMES
     double prev_image [2*10*2*80];

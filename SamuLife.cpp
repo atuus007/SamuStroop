@@ -72,6 +72,9 @@ void SamuLife::paintEvent ( QPaintEvent* )
               else if ( lattice[i][j] == 3 )
                 qpainter.fillRect ( j*m_cw, i*m_ch,
                                     m_cw, m_ch, Qt::blue );
+              else if ( lattice[i][j] == 4 )
+                qpainter.fillRect ( j*m_cw, i*m_ch,
+                                    m_cw, m_ch, Qt::magenta );
               else
                 qpainter.fillRect ( j*m_cw, i*m_ch,
                                     m_cw, m_ch, Qt::white );
@@ -87,6 +90,9 @@ void SamuLife::paintEvent ( QPaintEvent* )
               else if ( prediction[i][j] == 3 )
                 qpainter.fillRect ( gameOfLife->getW() *m_cw + j*m_cw, i*m_ch,
                                     m_cw, m_ch, Qt::blue );
+              else if ( prediction[i][j] == 4 )
+                qpainter.fillRect ( gameOfLife->getW() *m_cw + j*m_cw, i*m_ch,
+                                    m_cw, m_ch, Qt::magenta );
               else
                 qpainter.fillRect ( gameOfLife->getW() *m_cw + j*m_cw, i*m_ch,
                                     m_cw, m_ch, Qt::white );

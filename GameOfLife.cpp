@@ -295,6 +295,10 @@ void GameOfLife::development()
   green ( nextLattice, 4, 7, 1 );
 
 
+  if ( m_time > 4500 )
+    blue ( nextLattice, 9, 9, 4 );
+
+
   /*
   if ( carx < m_w-5 )
   carx += 2;
