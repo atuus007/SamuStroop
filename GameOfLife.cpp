@@ -521,7 +521,7 @@ void GameOfLife::learning()
 //bool **lattice = lattices[( latticeIndex+1 ) %2];
 
   double img_input[40];
-  int colors[4] = {0,0,0,0};
+  int colors[5] = {0,0,0,0,0};
 
   for ( int r {0}; r<m_h; ++r )
     {
@@ -531,7 +531,7 @@ void GameOfLife::learning()
           std::stringstream ss;
           int ii {0};
 
-          colors[0] = colors[1] = colors[2] = colors[3] = 0;
+          colors[0] = colors[1] = colors[2] = colors[3] = colors[4] = 0;
 
 
           for ( int i {-1}; i<2; ++i )
@@ -606,6 +606,7 @@ void GameOfLife::learning()
           img_input[2] =   colors[1]  ;
           img_input[3] = colors[2]  ;
           img_input[4] =   colors[3]  ;
+          
 
           ss << img_input[0];
           ss << '|';
@@ -617,7 +618,8 @@ void GameOfLife::learning()
           ss << img_input[3];
           ss << '|';
           ss << img_input[4];
-
+                    ss << '|';
+          ss << colors[4];
           std::string prg = ss.str();
 
           //SPOTriplet response = samuQl[r][c] ( lattice[r][c], prg, img_input );
