@@ -27,6 +27,17 @@ make
 
 ## Other Experiments with [Samu's COP engine](http://arxiv.org/abs/1511.02889)
 
-* [Samu has learnt the rules of Conway's Game of Life](https://github.com/nbatfai/SamuLife)
+Samu (Nahshon)
+http://arxiv.org/abs/1511.02889, 
+https://github.com/nbatfai/nahshon
 
-* [Samu has captured a movie](https://github.com/nbatfai/SamuMovie)
+SamuLife
+https://github.com/nbatfai/SamuLife,
+https://youtu.be/b60m__3I-UM
+
+SamuMovie
+https://github.com/nbatfai/SamuMovie, 
+https://youtu.be/XOPORbI1hz4
+
+SamuBrain
+https://github.com/nbatfai/SamuBrain
